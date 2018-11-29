@@ -18,16 +18,15 @@ import (
 
 func main() {
 	StartMain()
-	fmt.Println("s")
 	//testPaillier()
 }
 
 func StartMain() {
-	APIMux:= new(mux.Router)
+	APIMux := new(mux.Router)
 	httpHandler := common.WrapHandlerInCORS(APIMux)
-	http.Handle("/cct",promhttp.Handler())
-	http.Handle("/",httpHandler)
-	http.Handle("/wallet",httpHandler)
+	http.Handle("/cct", promhttp.Handler())
+	http.Handle("/", httpHandler)
+	http.Handle("/wallet", httpHandler)
 	clientapi.SetupClientAPI(APIMux)
 	go func() {
 		logrus.Info("Cross chain transcation interface working on ", *config.HttpBindAddr)
@@ -51,8 +50,9 @@ func RandomFromZnStar(n *big.Int) *big.Int {
 	return result
 }
 var publicKeyBitLen=256
+var secureRnd = rand.New(rand.NewSource(time.Now().UnixNano()))
 func testPaillier()  {
-	tkg,err:=paillier3.GetThresholdKeyGenerator(publicKeyBitLen,100,50,config.SecureRnd)
+	tkg,err:=paillier3.GetThresholdKeyGenerator(publicKeyBitLen,2,1,secureRnd)
 
 	if err!=nil{
 		panic("构造门限签名key失败,")
@@ -61,7 +61,7 @@ func testPaillier()  {
 	if err!=nil{
 		panic("生成包含阈值的paillier失败")
 	}
-	if len(tpks)!=100{
+	if len(tpks)!=2{
 		panic("要求生成的是1000个，计算结果有问题")
 	}
 	fmt.Println("要求生成1000个，实际n是",len(tpks))
@@ -104,7 +104,7 @@ func testPaillier()  {
 	fmt.Println("测试签名人数是50")
 	message:=big.NewInt(8888)
 	c:=tpks[1].Encrypt(message)
-	var shiji=44
+	var shiji=1
 
 	shares:=make([]*paillier3.PartialDecryption,shiji)
 	for i := 0; i < shiji; i++ {

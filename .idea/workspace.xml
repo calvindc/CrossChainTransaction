@@ -2,36 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b809924-18ca-4a29-8c44-b312ecc749a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/clientapi/lockin.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientapi/lockout.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientapi/routing.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/httpapi.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cryptocenter/crytocenter.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/commitments/commitment.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/commitments/consensusparams.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/commitments/multitrapdoorcommitment.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/commitments/mutitrapdoormasterpublickey.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/commitments/open.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/ecdsa/ecdsasign.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier/paillier.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier2/paillier2.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier2/paillier2_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier3/Paillier.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier3/PlainText.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier3/SafePrimeGenerator.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier3/ThresholdKey.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier3/ThresholdKeyGeneraor.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/paillier3/utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/zeroknowledgeproofs/publicparameters.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/zeroknowledgeproofs/zkp.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/zeroknowledgeproofs/zkpi1.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/zeroknowledgeproofs/zkpi2.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/util/context.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/util/json.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/util/jsonerror.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/util/util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/paillier1/paillier.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/pbcpairing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientapi/lockin.go" beforeDir="false" afterPath="$PROJECT_DIR$/clientapi/lockin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientapi/lockout.go" beforeDir="false" afterPath="$PROJECT_DIR$/clientapi/lockout.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientapi/routing.go" beforeDir="false" afterPath="$PROJECT_DIR$/clientapi/routing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cryptocenter/crytocenter.go" beforeDir="false" afterPath="$PROJECT_DIR$/cryptocenter/crytocenter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/commitments/commitment.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/commitments/commitment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/commitments/consensusparams.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/commitments/consensusparams.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/commitments/multitrapdoorcommitment.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/commitments/multitrapdoorcommitment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/commitments/open.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/commitments/open.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/paillier/paillier.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/paillier/paillier.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/paillier2/paillier2.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/paillier2/paillier2.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/zeroknowledgeproofs/publicparameters.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/zeroknowledgeproofs/publicparameters.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/zeroknowledgeproofs/zkp.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/zeroknowledgeproofs/zkp.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,30 +38,33 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="go" value="235" />
+          <entry key="go" value="309" />
           <entry key="md" value="1" />
+          <entry key="s" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Go" value="235" />
+          <entry key="Go" value="309" />
           <entry key="Markdown" value="1" />
+          <entry key="x86 Plan9 Assembly" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="9870" />
+          <entry key="go" value="11423" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="9870" />
+          <entry key="Go" value="11423" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
         <counts>
           <entry key=".append" value="1" />
           <entry key=".len" value="4" />
+          <entry key=".p" value="1" />
           <entry key=".par" value="1" />
           <entry key=".pointer" value="1" />
           <entry key=".var" value="2" />
@@ -87,62 +77,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/model/paillier3/Paillier.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="171" column="38" lean-forward="true" selection-start-line="171" selection-start-column="38" selection-end-line="171" selection-end-column="38" />
-              <folding>
-                <element signature="e#19#85#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cryptocenter/crytocenter.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="387" column="18" selection-start-line="387" selection-start-column="5" selection-end-line="387" selection-end-column="18" />
+            <state relative-caret-position="416">
+              <caret line="126" column="1" lean-forward="true" selection-start-line="126" selection-start-column="1" selection-end-line="126" selection-end-column="1" />
               <folding>
-                <element signature="e#22#524#0" expanded="true" />
+                <element signature="e#22#535#0" expanded="true" />
+                <element signature="e#1035#1960#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/ecdsa/ecdsasign.go">
+        <entry file="file://$PROJECT_DIR$/common/httpapi.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../sirupsen/logrus/exported.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="119" column="10" selection-start-line="119" selection-start-column="10" selection-end-line="119" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../sirupsen/logrus/logger.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="231" column="22" selection-start-line="231" selection-start-column="22" selection-end-line="231" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clientapi/lockout.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="176" column="1" selection-start-line="176" selection-start-column="1" selection-end-line="176" selection-end-column="1" />
+            <state relative-caret-position="-285">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+              <folding>
+                <element signature="e#16#159#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,9 +106,18 @@
         <entry file="file://$PROJECT_DIR$/clientapi/lockin.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+              <caret line="12" column="26" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/config.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="127">
+              <caret line="30" column="47" lean-forward="true" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
               <folding>
-                <element signature="e#2397#2591#0" />
+                <element signature="e#16#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -162,17 +126,50 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clientapi/routing.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="81" column="1" selection-start-line="81" selection-start-column="1" selection-end-line="81" selection-end-column="1" />
+            <state relative-caret-position="120">
+              <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/config.go">
+        <entry file="file://$PROJECT_DIR$/model/pbcpairing.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="-1344">
+              <caret line="86" column="5" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/zeroknowledgeproofs/publicparameters.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="30" column="50" lean-forward="true" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
+              <folding>
+                <element signature="e#29#229#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clientapi/lockout.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1454">
+              <caret line="100" column="18" lean-forward="true" selection-start-line="100" selection-start-column="18" selection-end-line="100" selection-end-column="18" />
+              <folding>
+                <element signature="e#19#321#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/ecdsa/ecdsasign.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="6" column="53" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -180,8 +177,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmd/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="101" column="33" selection-start-line="101" selection-start-column="26" selection-end-line="101" selection-end-column="33" />
+            <state relative-caret-position="546">
+              <caret line="78" column="29" lean-forward="true" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
               <folding>
                 <element signature="e#14#365#0" expanded="true" />
               </folding>
@@ -215,17 +212,23 @@
       <find>pk</find>
       <find>lockout_req_check</find>
       <find>Decrypt</find>
+      <find>paillier3</find>
+      <find>lockin_notify_calc</find>
+      <find>Paillier3</find>
+      <find>公钥x</find>
       <find>lockout_notify_calc</find>
+      <find>commitments</find>
     </findStrings>
     <replaceStrings>
       <replace>util.RandomFromZn</replace>
       <replace>util.GetBytes</replace>
       <replace>util.Sha256Hash</replace>
       <replace>secp256k1.S256()</replace>
+      <replace>model</replace>
     </replaceStrings>
     <dirStrings>
-      <dir>$PROJECT_DIR$</dir>
       <dir>$PROJECT_DIR$/model/paillier3</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="GOROOT" path="/usr/local/go" />
@@ -241,7 +244,6 @@
         <option value="$PROJECT_DIR$/util/jsonerror.go" />
         <option value="$PROJECT_DIR$/model/kgcenter.go" />
         <option value="$PROJECT_DIR$/model/paillier/paillier_test.go" />
-        <option value="$PROJECT_DIR$/model/paillier/paillier.go" />
         <option value="$PROJECT_DIR$/model/paillier/paillier2.go" />
         <option value="$PROJECT_DIR$/model/paillier2.go" />
         <option value="$PROJECT_DIR$/model/paillier3/key_gen.go" />
@@ -249,36 +251,43 @@
         <option value="$PROJECT_DIR$/model/paillier3/main.go" />
         <option value="$PROJECT_DIR$/model/paillier3/PlainText.go" />
         <option value="$PROJECT_DIR$/model/paillier3/main3.go" />
-        <option value="$PROJECT_DIR$/model/paillier2/paillier2.go" />
         <option value="$PROJECT_DIR$/kgcenter/shardingkeygen.go" />
         <option value="$PROJECT_DIR$/common/httpapi.go" />
         <option value="$PROJECT_DIR$/config/config_test.go" />
         <option value="$PROJECT_DIR$/model/keyshardingcenter.go" />
         <option value="$PROJECT_DIR$/model/commitments/mutitrapdoormasterpublickey.go" />
         <option value="$PROJECT_DIR$/kgcenter/keyshardingcenter.go" />
-        <option value="$PROJECT_DIR$/model/commitments/consensusparams.go" />
         <option value="$PROJECT_DIR$/model/paillier3/utils.go" />
         <option value="$PROJECT_DIR$/model/paillier3/ThresholdKeyGeneraor.go" />
         <option value="$PROJECT_DIR$/model/paillier3/ThresholdKey.go" />
         <option value="$PROJECT_DIR$/model/paillier3/SafePrimeGenerator.go" />
         <option value="$PROJECT_DIR$/model/paillier3/Paillier.go" />
-        <option value="$PROJECT_DIR$/model/zeroknowledgeproofs/publicparameters.go" />
-        <option value="$PROJECT_DIR$/model/commitments/open.go" />
-        <option value="$PROJECT_DIR$/model/commitments/commitment.go" />
-        <option value="$PROJECT_DIR$/model/commitments/multitrapdoorcommitment.go" />
-        <option value="$PROJECT_DIR$/model/zeroknowledgeproofs/zkp.go" />
         <option value="$PROJECT_DIR$/cryptocenter/keyshardingcenter.go" />
         <option value="$PROJECT_DIR$/util/json.go" />
-        <option value="$PROJECT_DIR$/cmd/main.go" />
         <option value="$PROJECT_DIR$/model/zeroknowledgeproofs/zkpi1.go" />
         <option value="$PROJECT_DIR$/model/zeroknowledgeproofs/zkpi2.go" />
         <option value="$PROJECT_DIR$/util/util.go" />
-        <option value="$PROJECT_DIR$/config/config.go" />
         <option value="$PROJECT_DIR$/model/ecdsa/ecdsasign.go" />
-        <option value="$PROJECT_DIR$/cryptocenter/crytocenter.go" />
-        <option value="$PROJECT_DIR$/clientapi/lockout.go" />
+        <option value="$PROJECT_DIR$/model/commitments/commitment.go" />
+        <option value="$PROJECT_DIR$/model/zeroknowledgeproofs/zkp.go" />
+        <option value="$PROJECT_DIR$/model/commitments/open.go" />
+        <option value="$PROJECT_DIR$/../Nik-U/pbc/element.go" />
+        <option value="$PROJECT_DIR$/../Nik-U/pbc/element_arith.go" />
+        <option value="$PROJECT_DIR$/../Nik-U/pbc/element_fmt.go" />
+        <option value="$PROJECT_DIR$/../Nik-U/pbc/element_misc.go" />
         <option value="$PROJECT_DIR$/clientapi/routing.go" />
+        <option value="$PROJECT_DIR$/cryptocenter/paillier.go" />
+        <option value="$PROJECT_DIR$/model/paillier2/paillier2.go" />
+        <option value="$PROJECT_DIR$/model/paillier/paillier.go" />
+        <option value="$PROJECT_DIR$/model/zeroknowledgeproofs/publicparameters.go" />
+        <option value="$PROJECT_DIR$/model/pbcpairing.go" />
+        <option value="$PROJECT_DIR$/model/commitments/consensusparams.go" />
+        <option value="$PROJECT_DIR$/model/commitments/multitrapdoorcommitment.go" />
         <option value="$PROJECT_DIR$/clientapi/lockin.go" />
+        <option value="$PROJECT_DIR$/clientapi/lockout.go" />
+        <option value="$PROJECT_DIR$/cmd/main.go" />
+        <option value="$PROJECT_DIR$/cryptocenter/crytocenter.go" />
+        <option value="$PROJECT_DIR$/config/config.go" />
       </list>
     </option>
   </component>
@@ -289,10 +298,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="135" />
-    <option name="y" value="126" />
-    <option name="width" value="1443" />
-    <option name="height" value="827" />
+    <option name="x" value="382" />
+    <option name="y" value="806" />
+    <option name="width" value="1534" />
+    <option name="height" value="887" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -320,6 +329,11 @@
             <path>
               <item name="CrossChainTransaction" type="b2602c69:ProjectViewProjectNode" />
               <item name="CrossChainTransaction" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CrossChainTransaction" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CrossChainTransaction" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -342,12 +356,6 @@
               <item name="CrossChainTransaction" type="b2602c69:ProjectViewProjectNode" />
               <item name="CrossChainTransaction" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="paillier3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CrossChainTransaction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CrossChainTransaction" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
               <item name="zeroknowledgeproofs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -365,17 +373,18 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/model/paillier" />
       <recent name="$PROJECT_DIR$/kgcenter" />
       <recent name="$PROJECT_DIR$/model" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/model/paillier2" />
-      <recent name="$PROJECT_DIR$/clientapi" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -391,12 +400,22 @@
     </option>
   </component>
   <component name="RunManager" selected="Go Build.go build main.go">
-    <configuration name="go build main3.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build lockin.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="CrossChainTransaction" />
       <working_directory value="$PROJECT_DIR$/" />
       <go_parameters value="-i" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/model/paillier3/main3.go" />
+      <filePath value="$PROJECT_DIR$/clientapi/lockin.go" />
+      <package value="github.com/CrossChainTransaction" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="CrossChainTransaction" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/cmd10001/main.go" />
       <package value="github.com/CrossChainTransaction" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
@@ -411,46 +430,53 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="go build multitrapdoorcommitment.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build paillier2.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="CrossChainTransaction" />
       <working_directory value="$PROJECT_DIR$/" />
       <go_parameters value="-i" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/model/commitments/multitrapdoorcommitment.go" />
+      <filePath value="$PROJECT_DIR$/model/paillier2/paillier2.go" />
       <package value="github.com/CrossChainTransaction" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="TestHomomorphicConstantMultiplication in github.com/CrossChainTransaction/model/paillier" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="paillier2_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="CrossChainTransaction" />
-      <working_directory value="$PROJECT_DIR$/model/paillier" />
+      <working_directory value="$PROJECT_DIR$/model/paillier2" />
       <go_parameters value="-i" />
       <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/CrossChainTransaction/model/paillier" />
+      <kind value="FILE" />
+      <package value="github.com/CrossChainTransaction" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestHomomorphicConstantMultiplication$" />
+      <filePath value="$PROJECT_DIR$/model/paillier2/paillier2_test.go" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Go Build.go build main.go" />
-      <item itemvalue="Go Test.TestHomomorphicConstantMultiplication in github.com/CrossChainTransaction/model/paillier" />
-      <item itemvalue="Go Build.go build main3.go" />
-      <item itemvalue="Go Build.go build multitrapdoorcommitment.go" />
+      <item itemvalue="Go Build.go build main.go (1)" />
+      <item itemvalue="Go Test.paillier2_test.go" />
+      <item itemvalue="Go Build.go build paillier2.go" />
+      <item itemvalue="Go Build.go build lockin.go" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Build.go build multitrapdoorcommitment.go" />
-        <item itemvalue="Go Build.go build main3.go" />
-        <item itemvalue="Go Test.TestHomomorphicConstantMultiplication in github.com/CrossChainTransaction/model/paillier" />
+        <item itemvalue="Go Build.go build lockin.go" />
+        <item itemvalue="Go Test.paillier2_test.go" />
+        <item itemvalue="Go Build.go build paillier2.go" />
+        <item itemvalue="Go Build.go build main.go (1)" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
     <history-entry file="TestHomomorphicConstantMultiplication_in_github_com_CrossChainTransaction_model_paillier - 2018.11.22 at 12h 04m 09s.xml">
       <configuration name="TestHomomorphicConstantMultiplication in github.com/CrossChainTransaction/model/paillier" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="paillier2_test_go - 2018.11.29 at 01h 11m 25s.xml">
+      <configuration name="paillier2_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="paillier2_test_go - 2018.11.29 at 01h 23m 21s.xml">
+      <configuration name="paillier2_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -463,22 +489,23 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="135" y="126" width="1443" height="827" extended-state="0" />
+    <frame x="628" y="711" width="1534" height="887" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5006002" side_tool="true" weight="0.20064034" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49939975" visible="true" weight="0.182534" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49939975" visible="true" weight="0.23319893" />
       <window_info id="Structure" order="2" sideWeight="0.5006002" side_tool="true" weight="0.20064034" />
       <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="1" weight="0.3283582" />
       <window_info anchor="bottom" id="Message" order="2" />
-      <window_info anchor="bottom" id="Find" order="3" weight="0.22686568" />
+      <window_info anchor="bottom" id="Find" order="3" weight="0.1576087" />
       <window_info anchor="bottom" id="Database Changes" order="4" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="5" weight="0.6029851" />
-      <window_info anchor="bottom" id="Debug" order="6" weight="0.13814956" />
+      <window_info anchor="bottom" id="Run" order="5" weight="0.26494566" />
+      <window_info anchor="bottom" id="Debug" order="6" weight="0.27445653" />
       <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="9" weight="0.23283581" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32686567" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.25753424" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -491,62 +518,81 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockout.go</url>
+          <line>177</line>
+          <properties />
+          <option name="timeStamp" value="129" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockout.go</url>
+          <line>170</line>
+          <properties />
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cryptocenter/crytocenter.go</url>
+          <line>478</line>
+          <properties />
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockout.go</url>
+          <line>165</line>
+          <properties />
+          <option name="timeStamp" value="175" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockout.go</url>
+          <line>104</line>
+          <properties />
+          <option name="timeStamp" value="198" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockin.go</url>
+          <line>117</line>
+          <properties />
+          <option name="timeStamp" value="209" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockin.go</url>
+          <line>50</line>
+          <properties />
+          <option name="timeStamp" value="215" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockin.go</url>
+          <line>166</line>
+          <properties />
+          <option name="timeStamp" value="216" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockin.go</url>
+          <line>159</line>
+          <properties />
+          <option name="timeStamp" value="218" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockin.go</url>
+          <line>160</line>
+          <properties />
+          <option name="timeStamp" value="219" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/clientapi/lockin.go</url>
+          <line>161</line>
+          <properties />
+          <option name="timeStamp" value="220" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor>
-            <caret column="23" lean-forward="true" selection-start-column="23" selection-end-column="23" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../gorilla/mux/mux.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" column="26" lean-forward="true" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clientapi/clientapi.go" />
-    <entry file="file://$PROJECT_DIR$/util/context.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/jsonerror.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/configs/config.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/paillier2.go" />
-    <entry file="file://$PROJECT_DIR$/model/paillier2/paillier2_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="8" column="40" lean-forward="true" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/paillier3/main3.go" />
-    <entry file="file://$PROJECT_DIR$/model/paillier2/paillier2.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2520">
-          <caret line="185" column="6" selection-start-line="185" selection-start-column="6" selection-end-line="185" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/kgcenter/shardingkeygen.go" />
     <entry file="file://$PROJECT_DIR$/config/config_test.go" />
     <entry file="file:///usr/local/go/src/hash/hash.go">
@@ -556,31 +602,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Nik-U/pbc/element_arith.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="243" column="19" lean-forward="true" selection-start-line="243" selection-start-column="19" selection-end-line="243" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Nik-U/pbc/pairing.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="78" column="5" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/paillier/paillier.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/math/big/int.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -595,13 +620,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
           <caret line="84" column="8" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/commitments/mutitrapdoormasterpublickey.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -626,13 +644,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/go/src/runtime/panic.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="587" selection-start-line="587" selection-end-line="587" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/paillier3/utils.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -653,78 +664,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/go/src/encoding/json/stream.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/json.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ncw/gmp/int.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="703" column="14" selection-start-line="703" selection-start-column="14" selection-end-line="703" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/commitments/multitrapdoorcommitment.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="69" column="49" selection-start-line="69" selection-start-column="45" selection-end-line="69" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/commitments/commitment.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/httpapi.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-          <folding>
-            <element signature="e#16#159#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/commitments/consensusparams.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="e#21#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/util.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
-          <folding>
-            <element signature="e#14#121#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/zeroknowledgeproofs/publicparameters.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#29#230#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -735,27 +678,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/zeroknowledgeproofs/zkp.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="111" column="16" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/zeroknowledgeproofs/zkpi2.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="146" column="34" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/commitments/open.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding>
-            <element signature="e#21#67#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -780,70 +706,266 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.go">
+    <entry file="file://$PROJECT_DIR$/model/paillier3/Paillier.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="84">
+          <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/net/http/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="2966" column="5" selection-start-line="2966" selection-start-column="5" selection-end-line="2966" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/encoding/json/stream.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/runtime/asm_amd64.s">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="572" selection-start-line="572" selection-end-line="572" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Nik-U/pbc/element_arith.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="442" column="35" selection-start-line="442" selection-start-column="27" selection-end-line="442" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Nik-U/pbc/element_misc.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="84" column="2" lean-forward="true" selection-start-line="84" selection-start-column="2" selection-end-line="84" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Nik-U/pbc/element_fmt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="91" column="2" lean-forward="true" selection-start-line="91" selection-start-column="2" selection-end-line="91" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Nik-U/pbc/element.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="124" column="19" lean-forward="true" selection-start-line="124" selection-start-column="19" selection-end-line="124" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/runtime/panic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="587" selection-start-line="587" selection-end-line="587" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/commitments/mutitrapdoormasterpublickey.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/commitments/open.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="37" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="37" />
+          <folding>
+            <element signature="e#21#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/paillier2/paillier2.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="200" column="5" selection-start-line="200" selection-start-column="5" selection-end-line="200" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/paillier2/paillier2_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-868">
+          <caret line="40" column="31" lean-forward="true" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+          <folding>
+            <element signature="e#19#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/paillier1/paillier.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1792">
+          <caret line="140" column="1" lean-forward="true" selection-start-line="140" selection-start-column="1" selection-end-line="140" selection-end-column="1" />
+          <folding>
+            <element signature="e#17#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/paillier/paillier.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="85" column="5" selection-start-line="85" selection-start-column="4" selection-end-line="85" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/math/big/int.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="256" column="14" selection-start-line="256" selection-start-column="14" selection-end-line="256" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/zeroknowledgeproofs/zkp.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="89" column="41" lean-forward="true" selection-start-line="89" selection-start-column="41" selection-end-line="89" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/commitments/commitment.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/commitments/multitrapdoorcommitment.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1489">
+          <caret line="118" column="39" lean-forward="true" selection-start-line="118" selection-start-column="39" selection-end-line="118" selection-end-column="39" />
+          <folding>
+            <element signature="e#21#174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/commitments/consensusparams.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="999">
+          <caret line="79" column="16" lean-forward="true" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
+          <folding>
+            <element signature="e#21#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/json.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+          <folding>
+            <element signature="e#14#124#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/util.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="76" column="32" lean-forward="true" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
+          <folding>
+            <element signature="e#14#121#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/pbcpairing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1344">
+          <caret line="86" column="5" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/zeroknowledgeproofs/publicparameters.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="30" column="50" lean-forward="true" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
+          <folding>
+            <element signature="e#29#229#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model/ecdsa/ecdsasign.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cryptocenter/crytocenter.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="387" column="18" selection-start-line="387" selection-start-column="5" selection-end-line="387" selection-end-column="18" />
-          <folding>
-            <element signature="e#22#524#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="101" column="33" selection-start-line="101" selection-start-column="26" selection-end-line="101" selection-end-column="33" />
-          <folding>
-            <element signature="e#14#365#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clientapi/lockout.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="176" column="1" selection-start-line="176" selection-start-column="1" selection-end-line="176" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clientapi/routing.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="81" column="1" selection-start-line="81" selection-start-column="1" selection-end-line="81" selection-end-column="1" />
+        <state relative-caret-position="84">
+          <caret line="6" column="53" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/clientapi/lockin.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientapi/routing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/httpapi.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
           <folding>
-            <element signature="e#2397#2591#0" />
+            <element signature="e#16#159#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/paillier3/Paillier.go">
+    <entry file="file://$PROJECT_DIR$/cryptocenter/crytocenter.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="171" column="38" lean-forward="true" selection-start-line="171" selection-start-column="38" selection-end-line="171" selection-end-column="38" />
+        <state relative-caret-position="416">
+          <caret line="126" column="1" lean-forward="true" selection-start-line="126" selection-start-column="1" selection-end-line="126" selection-end-column="1" />
           <folding>
-            <element signature="e#19#85#0" expanded="true" />
+            <element signature="e#22#535#0" expanded="true" />
+            <element signature="e#1035#1960#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientapi/lockout.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1454">
+          <caret line="100" column="18" lean-forward="true" selection-start-line="100" selection-start-column="18" selection-end-line="100" selection-end-column="18" />
+          <folding>
+            <element signature="e#19#321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="78" column="29" lean-forward="true" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
+          <folding>
+            <element signature="e#14#365#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="30" column="47" lean-forward="true" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
+          <folding>
+            <element signature="e#16#55#0" expanded="true" />
           </folding>
         </state>
       </provider>

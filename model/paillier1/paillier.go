@@ -1,22 +1,26 @@
-package paillier
-
+package paillier1
 import (
-	"math/big"
+	"crypto/rand"
 	"errors"
 	"io"
-	"crypto/rand"
+	"math/big"
 )
 
 var one = big.NewInt(1)
+
+// ErrMessageTooLong is returned when attempting to encrypt a message which is
+// too large for the size of the public key.
 var ErrMessageTooLong = errors.New("paillier: message too long for Paillier public key size")
 
+// GenerateKey generates an Paillier keypair of the given bit size using the
+// random source random (for example, crypto/rand.Reader).
 func GenerateKey(random io.Reader, bits int) (*PrivateKey, error) {
-	p, err := rand.Prime(random, bits)
+	p, err := rand.Prime(random, bits/2)
 	if err != nil {
 		return nil, err
 	}
 
-	q, err := rand.Prime(random, bits)
+	q, err := rand.Prime(random, bits/2)
 	if err != nil {
 		return nil, err
 	}
@@ -41,47 +45,34 @@ func GenerateKey(random io.Reader, bits int) (*PrivateKey, error) {
 	}, nil
 }
 
+// PrivateKey represents a Paillier key.
 type PrivateKey struct {
 	PublicKey
 	L *big.Int // phi(n), (p-1)*(q-1)
 	U *big.Int // l^-1 mod n
 }
 
+// PublicKey represents the public part of a Paillier key.
 type PublicKey struct {
 	N        *big.Int // modulus
 	G        *big.Int // n+1, since p and q are same length
 	NSquared *big.Int
 }
 
-//pubKey 公钥
-// m 明码
-// r 计算参数
-func Xencrypt(pubKey *PublicKey, m *big.Int, r *big.Int) *big.Int {
-	s, _ := Encrypt(pubKey, m.Bytes(), r)
-	return new(big.Int).SetBytes(s)
-}
-
-func Xdecrypt(privKey *PrivateKey, c *big.Int) *big.Int {
-	s, _ := Decrypt(privKey, c.Bytes())
-	return new(big.Int).SetBytes(s)
-}
-func XcipherAdd(pubKey *PublicKey, c1 *big.Int, c2 *big.Int) *big.Int {
-	s := AddCipher(pubKey, c1.Bytes(), c2.Bytes())
-	return new(big.Int).SetBytes(s)
-}
-func XcipherMultiply(pubKey *PublicKey, c1 *big.Int, cons *big.Int) *big.Int {
-	s := Mul(pubKey, c1.Bytes(), cons.Bytes())
-	return new(big.Int).SetBytes(s)
-}
-
-// c = g^m * r^n mod n^2
-func Encrypt(pubKey *PublicKey, plainText []byte, r *big.Int) ([]byte, error) {
+// Encrypt encrypts a plain text represented as a byte array. The passed plain
+// text MUST NOT be larger than the modulus of the passed public key.
+func Encrypt(pubKey *PublicKey, plainText []byte) ([]byte, error) {
+	r, err := rand.Prime(rand.Reader, pubKey.N.BitLen())
+	if err != nil {
+		return nil, err
+	}
 
 	m := new(big.Int).SetBytes(plainText)
 	if pubKey.N.Cmp(m) < 1 { // N < m
 		return nil, ErrMessageTooLong
 	}
 
+	// c = g^m * r^n mod n^2
 	n := pubKey.N
 	c := new(big.Int).Mod(
 		new(big.Int).Mul(
@@ -160,4 +151,3 @@ func Mul(pubKey *PublicKey, cipher []byte, constant []byte) []byte {
 	// c ^ x mod n^2
 	return new(big.Int).Exp(c, x, pubKey.NSquared).Bytes()
 }
-

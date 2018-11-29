@@ -20,7 +20,7 @@ func (mtdc *MultiTrapdoorCommitment) Constructor(commitment *Commitment, open *O
 }
 
 func MultiLinnearCommit(rand *rand.Rand, mpk *MultiTrapdoorMasterPublicKey,secrets []*big.Int) *MultiTrapdoorCommitment {
-	e := mpk.pairing.NewZr()
+	/*e := mpk.pairing.NewZr()
 	e.Rand()
 	r := mpk.pairing.NewZr()
 	r.Rand()
@@ -64,11 +64,65 @@ func MultiLinnearCommit(rand *rand.Rand, mpk *MultiTrapdoorMasterPublicKey,secre
 
 	mtdct := new(MultiTrapdoorCommitment)
 	mtdct.Constructor(commitment, open)
+	return mtdct*/
+	e := mpk.pairing.NewZr()
+	e.Rand()
+	r := mpk.pairing.NewZr()
+	r.Rand()
+
+	h := func(target *pbc.Element, megs []string) {
+		hash := sha256.New()
+		for j := range megs {
+			hash.Write([]byte(megs[j]))
+		}
+		i := &big.Int{}
+		target.SetBig(i.SetBytes(hash.Sum([]byte{})))
+	}
+
+	secretsBytes := make([]string, len(secrets))
+	for i := range secrets {
+		count := ((secrets[i].BitLen() + 7) / 8)
+		se := make([]byte, count)
+		math.ReadBits(secrets[i], se[:])
+		secretsBytes[i] = string(se[:])
+	}
+
+	digest := mpk.pairing.NewZr()
+	h(digest, secretsBytes[:])
+
+	ge := mpk.pairing.NewG1()
+	ge.MulZn(mpk.g, e)
+
+	//he = mpk.h + ge
+	he := mpk.pairing.NewG1()
+	he.Add(mpk.h, ge)
+
+	//he = r*he
+	rhe := mpk.pairing.NewG1()
+	rhe.MulZn(he, r)
+
+	//dg = digest*mpk.g
+	dg := mpk.pairing.NewG1()
+	//
+	dg.MulZn(mpk.g, digest)
+
+	//a = mpk.g + he
+	a := mpk.pairing.NewG1()
+	a.Add(dg, rhe)
+
+	open := new(Open)
+	open.Constructor(r, secrets)
+	commitment := new(Commitment)
+	commitment.Constructor(e, a)
+
+	mtdct := new(MultiTrapdoorCommitment)
+	mtdct.Constructor(commitment, open)
+
 	return mtdct
 }
 
 func CheckCommitment(commitment *Commitment, open *Open, mpk *MultiTrapdoorMasterPublicKey) bool {
-	g := mpk.g
+	/*g := mpk.g
 	h := mpk.h
 	f := func(target *pbc.Element, megs []string) {
 		hash := sha256.New()
@@ -94,7 +148,7 @@ func CheckCommitment(commitment *Commitment, open *Open, mpk *MultiTrapdoorMaste
 	a = a.MulZn(g, open.getRandomness())
 	// b=curve.add(h, curve.multiply(g, new BigInt(commitment.pubkey)))
 	gMulp := mpk.pairing.NewG1()
-	gMulp = gMulp.MulZn(g, commitment.pubkey)
+	gMulp = gMulp.MulZn(g, commitment.Pubkey)
 	b := mpk.pairing.NewG1()
 	b = b.Add(h, gMulp)
 	// c=curve.add(commitment.committment, curve.multiply(g, new BigInt(digest.negate())))
@@ -102,13 +156,57 @@ func CheckCommitment(commitment *Commitment, open *Open, mpk *MultiTrapdoorMaste
 	digest = digest.Neg(digest)
 	gMulneg = gMulneg.MulZn(g, digest)
 	c := mpk.pairing.NewG1()
-	c = c.Add(commitment.commitment, gMulneg)
+	c = c.Add(commitment.Commitment, gMulneg)
 
 	result := DDHTest(a, b, c, g, mpk.pairing)
 	if result == false {
 		logrus.Error("Verify commitment failed")
 	}
-	return result
+	return result*/
+	g := mpk.g
+	h := mpk.h
+
+	f := func(target *pbc.Element, megs []string) {
+		hash := sha256.New()
+		for j := range megs {
+			hash.Write([]byte(megs[j]))
+		}
+		i := &big.Int{}
+		target.SetBig(i.SetBytes(hash.Sum([]byte{})))
+	}
+
+	secrets := open.GetSecrets()
+	secretsBytes := make([]string, len(secrets))
+	for i := range secrets {
+		count := ((secrets[i].BitLen() + 7) / 8)
+		se := make([]byte, count)
+		math.ReadBits(secrets[i], se[:])
+		secretsBytes[i] = string(se[:])
+	}
+	//digest hash(h秘密)
+	digest := mpk.pairing.NewZr()
+	f(digest, secretsBytes[:])
+	//g^a
+	rg := mpk.pairing.NewG1()
+	rg.MulZn(g, open.getRandomness())
+	//(g,h)
+	d1 := mpk.pairing.NewG1()
+	d1.MulZn(g, commitment.Pubkey)
+	//h^b
+	dh := mpk.pairing.NewG1()
+	dh.Add(h, d1)
+	//g(-digest)
+	gdn := mpk.pairing.NewG1()
+	digest.Neg(digest)
+	gdn.MulZn(g, digest)
+	//a*b
+	comd := mpk.pairing.NewG1()
+	comd.Add(commitment.Commitment, gdn)
+	b := DDHTest(rg, dh, comd, g, mpk.pairing)
+	if b == false {
+		logrus.Error("Check commitment error")
+	}
+	return b
 }
 
 //DDHTest

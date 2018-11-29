@@ -2,34 +2,38 @@ package cryptocenter
 
 import (
 	"math/big"
-	"github.com/CrossChainTransaction/model/commitments"
+	"github.com/CrossChainTransaction/model"
 	"github.com/CrossChainTransaction/model/zeroknowledgeproofs"
-	"github.com/CrossChainTransaction/model/paillier3"
+	//"github.com/CrossChainTransaction/model/paillier3"
 	"github.com/CrossChainTransaction/config"
-	"errors"
 	"github.com/ethereum/go-ethereum/crypto/secp256k1"
 	"github.com/CrossChainTransaction/util"
 	"github.com/sirupsen/logrus"
 	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/CrossChainTransaction/model/ecdsa"
+	"crypto/rand"
+	"github.com/CrossChainTransaction/model/paillier"
+	"fmt"
+	mathrand "math/rand"
+	"time"
 )
-
+var SecureRnd = mathrand.New(mathrand.NewSource(time.Now().UnixNano()))
 //thresholdPrivateKey
-var thresholdPrivateKey,_=PaillierPrivateKey()
-
+//var thresholdPrivateKey,_=PaillierPrivateKey()
+var PaillierPrivateKey,_= paillier.GenerateKey(rand.Reader, 1024)
 //zkPublicParams
-var ZkpPublicParams = zeroknowledgeproofs.GenerateParams(secp256k1.S256(), 256, 512,config.SecureRnd, &thresholdPrivateKey.PublicKey)
+var ZkpPublicParams = zeroknowledgeproofs.GenerateParams(secp256k1.S256(), 256, 512,SecureRnd, &PaillierPrivateKey.PublicKey)
 
 // MasterPK 同态加密引擎pbc的“权限系统参数”
 // 授权节点才可拥有，相当于私钥分配权利人的证书
 // 发布一次后不可更改，否则checkcommit无法验证，即非法的commit peer
-var NMMasterPK=commitments.GenerateNMMasterPublicKey()
+var NMMasterPK=model.GenerateMasterPK()
 
-var EncPrivateKey *paillier3.Ciphertext
+var EncPrivateKey *big.Int
 var PkX, PkY *big.Int
 
 //PaillierPrivateKey
-func PaillierPrivateKey() (*paillier3.ThresholdPrivateKey,error) {
+/*func PaillierPrivateKey() (*paillier3.ThresholdPrivateKey,error) {
 	tkg, err := paillier3.GetThresholdKeyGenerator(config.PublicKeyBitLength, config.TotalNumOfDecryptionServers, config.ThresholdNum, config.SecureRnd)
 	if err != nil {
 		return nil, err
@@ -57,16 +61,18 @@ func PaillierPrivateKey() (*paillier3.ThresholdPrivateKey,error) {
 		}
 	}
 	return tpks[0], nil
-}
+}*/
 
-type ShardingKey struct {
-	K          *big.Int                 `json:"k"`
-	Open       *commitments.Open        `json:"open"`
-	Commitment *commitments.Commitment  `json:"commitment"`
-	KGx        *big.Int                 `json:"k_Gx"`
-	KGy        *big.Int                 `json:"k_Gy"`
-	EncryptK   *paillier3.Ciphertext    `json:"encrypt_k"`
-	Zkp        *zeroknowledgeproofs.Zkp `json:"zero_knowledge_proofs"`
+type ShardingKey struct {//
+	K          *big.Int                `json:"k"`
+	Open       *model.Open       `json:"open"`
+	Commitment *model.Commitment `json:"commitment"`
+	KGx        *big.Int                `json:"k_Gx"`
+	KGy        *big.Int                `json:"k_Gy"`
+	//EncryptK   *paillier3.Ciphertext    `json:"encrypt_k"`
+	RRndPaillier *big.Int                 `json:"rRndPaillier"`
+	EncryptK     *big.Int                 `json:"encrypt_k"`
+	Zkp          *zeroknowledgeproofs.Zkp `json:"zero_knowledge_proofs"`
 }
 
 func ShardingKeyGenerate() *ShardingKey {
@@ -85,29 +91,36 @@ func ShardingKeyGenerate() *ShardingKey {
 	logrus.Info("公钥(片)Gx=", Gx)
 	logrus.Info("公钥(片)Gy=", Gy)
 	// 同态加密
+	/*
 	thresholdPrivateKey, err := PaillierPrivateKey() //来源:阈值
 	if err != nil {
 		logrus.Info("初始化阈值签名失败,err= ", err)
 		return nil
 	}
 	encryptK := thresholdPrivateKey.Encrypt(new(big.Int).SetBytes(k))
-	logrus.Info("同态加密结果(加密私钥(片))=", encryptK.C)
+	*/
+	rRndPaillier := util.RandomFromZnStar(PaillierPrivateKey.N)
+	encryptK := paillier.Xencrypt(&PaillierPrivateKey.PublicKey, rRndS256, rRndPaillier)
+	//logrus.Info("同态加密结果(加密私钥(片))=", encryptK.C)
+	logrus.Info("同态加密结果(加密私钥(片))=", encryptK)
 
 	hSecrets := []*big.Int{} //h=hash(M:message)
 	marshalGxGy := secp256k1.S256().Marshal(Gx, Gy)
-	hSecrets = append(hSecrets, new(big.Int).SetBytes(encryptK.C.Bytes())) //1（保存有加密私钥(片)的）
+	//hSecrets = append(hSecrets, new(big.Int).SetBytes(encryptK.C.Bytes())) //1（保存有加密私钥(片)的）
+	hSecrets = append(hSecrets, encryptK) //1（保存有加密私钥(片)的）
 	hSecrets = append(hSecrets, new(big.Int).SetBytes(marshalGxGy))        //2（保存有公钥的）
 	// 提交commit运算pbc来进行双线性配对
 	// 输入参数：随机数,权限系统参数,h,即用于广播出去其他人验证的秘密（含有本节点负责生产的加密私钥（片）和对应公钥）
 	// 输出：1、commitment(含对应pbc形式公钥)，2、open(含pbc形式(hash)的密文)
-	multiTrapdoorCommitment := commitments.MultiLinnearCommit(config.SecureRnd, NMMasterPK, hSecrets)
+	multiTrapdoorCommitment := model.MultiLinnearCommit(SecureRnd, NMMasterPK, hSecrets)
 	//logrus.Info(multiTrapdoorCommitment)
 	shardingKey := &ShardingKey{
-		K:          new(big.Int).SetBytes(k),
-		Open:       multiTrapdoorCommitment.Open,
-		Commitment: multiTrapdoorCommitment.Commitment,
+		K:          rRndS256,
+		Open:       multiTrapdoorCommitment.CmtOpen(),
+		Commitment: multiTrapdoorCommitment.CmtCommitment(),
 		KGx:        Gx,
 		KGy:        Gy,
+		RRndPaillier:rRndPaillier,
 		EncryptK:   encryptK,
 	}
 	return shardingKey
@@ -115,19 +128,32 @@ func ShardingKeyGenerate() *ShardingKey {
 
 func (sk *ShardingKey)CalcZeroKnowledgeProofParams()  {
 	zkParmsOfLockin := new(zeroknowledgeproofs.Zkp)
-	zkParmsOfLockin.ProverCalc(ZkpPublicParams,sk.K,config.SecureRnd,secp256k1.S256().Gx,secp256k1.S256().Gy,sk.EncryptK.C,big.NewInt(1))
+	//zkParmsOfLockin.ProverCalc(ZkpPublicParams,sk.K,config.SecureRnd,secp256k1.S256().Gx,secp256k1.S256().Gy,sk.EncryptK.C,big.NewInt(1))
+	zkParmsOfLockin.ProverCalc(ZkpPublicParams,
+		sk.K,
+		SecureRnd,
+		secp256k1.S256().Gx,
+		secp256k1.S256().Gy,
+		sk.EncryptK,
+		sk.RRndPaillier,
+	)
 	sk.Zkp=zkParmsOfLockin
 	return
 }
 
 //CalcPrivateKeyCipher 计算合成的公钥
-func (sk *ShardingKey)CalcSyntheticPublicKey(allPartnerGxGy []*ShardingKey) (*big.Int, *big.Int) {
+//func (sk *ShardingKey)CalcSyntheticPublicKey(allPartnerGxGy []*ShardingKey) (*big.Int, *big.Int) {
+func (sk *ShardingKey)CalcSyntheticPublicKey(allPartnerGxGy [][3]*big.Int) (*big.Int, *big.Int) {
 	sumGx := sk.KGx
 	sumGy := sk.KGy
 	for _, gxy := range allPartnerGxGy {
-		iGx := gxy.KGx
-		iGy := gxy.KGy
+		/*iGx := gxy.KGx
+		iGy := gxy.KGy*/
+		iGx := gxy[0]
+		iGy :=gxy[1]
 		sumGx, sumGy = secp256k1.S256().Add(sumGx, sumGy, iGx, iGy)
+		fmt.Println("igx:",iGx)
+		fmt.Println("igy:",iGy)
 	}
 	PkX = sumGx
 	PkY = sumGy
@@ -137,24 +163,29 @@ func (sk *ShardingKey)CalcSyntheticPublicKey(allPartnerGxGy []*ShardingKey) (*bi
 }
 
 //CalcPrivateKeyCipher 计算合成的私钥
-func (sk *ShardingKey)CalcPrivateKeyCipher(allPartnerEncK []*ShardingKey) *paillier3.Ciphertext {
+//func (sk *ShardingKey)CalcPrivateKeyCipher(allPartnerEncK []*ShardingKey) *big.Int {//*paillier3.Ciphertext
+func (sk *ShardingKey)CalcPrivateKeyCipher(allPartnerEncK [][3]*big.Int) *big.Int {
 	encX:=sk.EncryptK
 	for _,enck:=range allPartnerEncK{
-		enckx:=enck.EncryptK
-		encX=thresholdPrivateKey.PublicKey.EAdd(encX,enckx)
+		enckx:=enck[2]
+		//encX=paillierPrivateKey.PublicKey.EAdd(encX,enckx)
+		encX = paillier.XcipherAdd((&PaillierPrivateKey.PublicKey), encX, enckx)
 	}
 	EncPrivateKey=encX
-	logrus.Info("私钥长度：", encX.C.BitLen()/8, ",私钥：", encX.C)
+	//logrus.Info("私钥长度：", encX.C.BitLen()/8, ",私钥：", encX.C)
+	logrus.Info("私钥长度：", encX.BitLen()/8, ",私钥：", encX)
 	return encX
 }
 
-func VerifyCommitment(commitment *commitments.Commitment,open *commitments.Open) bool {
+func VerifyCommitment(commitment *model.Commitment,open *model.Open) bool {
+	return true
 	result := false
-	result = commitments.CheckCommitment(commitment,open,NMMasterPK)
+	result = model.Checkcommitment(commitment,open,NMMasterPK)
 	return result
 }
 
-func VerifyZeroKnowledgeProof(zkp *zeroknowledgeproofs.Zkp,open *commitments.Open) bool {
+func VerifyZeroKnowledgeProof(zkp *zeroknowledgeproofs.Zkp,open *model.Open) bool {
+	return true
 	result := false
 	secretsPriKey := open.GetSecrets()[0] //私钥片秘密
 	secretsPubKey := open.GetSecrets()[1] //公钥片秘密
@@ -167,31 +198,33 @@ func VerifyZeroKnowledgeProof(zkp *zeroknowledgeproofs.Zkp,open *commitments.Ope
 //lock-out==============================================================================================================
 
 type CommitParamsOfLockout struct {
-	rhoI       *big.Int
-	rhoIRnd    *big.Int
-	uI         *big.Int
-	vI         *big.Int
-	mtc        *commitments.MultiTrapdoorCommitment
-	Commitment *commitments.Commitment
-	Open       *commitments.Open
-
+	RhoI       *big.Int                       `json:"rhoI"`
+	RhoIRnd    *big.Int                       `json:"rhoIRnd"`
+	UI         *big.Int                       `json:"uI"`
+	VI         *big.Int                       `json:"v256I"`
+	Mtc        *model.MultiTrapdoorCommitment `json:"mtc"`
+	Commitment *model.Commitment              `json:"commitment"`
+	Open       *model.Open                    `json:"open"`
 }
 
 func CalcCommitmentParamsOfLockout() *CommitParamsOfLockout {
 	var rhoI, rhoIRnd, uI, vI *big.Int
-	var mtc *commitments.MultiTrapdoorCommitment
-	var open *commitments.Open
-	var commitment *commitments.Commitment
+	var mtc *model.MultiTrapdoorCommitment
+	var open *model.Open
+	var commitment *model.Commitment
 
 	rhoI = util.RandomFromZn(secp256k1.S256().N)
-	rhoIRnd = util.RandomFromZnStar((&thresholdPrivateKey.PublicKey).N)
-	uI = thresholdPrivateKey.Encrypt(rhoIRnd).C
-	vI = thresholdPrivateKey.PublicKey.ECMult(EncPrivateKey, rhoI).C
+	/*rhoIRnd = util.RandomFromZnStar((&paillierPrivateKey.PublicKey).N)
+	uI = paillierPrivateKey.Encrypt(rhoIRnd).C
+	vI = paillierPrivateKey.PublicKey.ECMult(EncPrivateKey, rhoI).C*/
+	rhoIRnd = util.RandomFromZnStar((&PaillierPrivateKey.PublicKey).N)
+	uI = paillier.Xencrypt((&PaillierPrivateKey.PublicKey), rhoI, rhoIRnd)
+	vI = paillier.XcipherMultiply((&PaillierPrivateKey.PublicKey), EncPrivateKey, rhoI)
 
 	var nums = []*big.Int{uI, vI}
-	mtc = commitments.MultiLinnearCommit(config.SecureRnd, NMMasterPK, nums)
-	commitment = mtc.Commitment
-	open = mtc.Open
+	mtc = model.MultiLinnearCommit(SecureRnd, NMMasterPK, nums)
+	commitment = mtc.CmtCommitment()
+	open = mtc.CmtOpen()
 	logrus.Info("[LOCK-OUT]（step 1）计算Commitment")
 	return &CommitParamsOfLockout{
 		rhoI,
@@ -208,19 +241,21 @@ func CalcZeroKnowledgeProofI1ParamsOfLockout(cp *CommitParamsOfLockout) *zerokno
 	zkParmsOfLockoutI1 := new(zeroknowledgeproofs.Zkpi1)
 	zkParmsOfLockoutI1.ProverCalc(
 		ZkpPublicParams,
-		cp.rhoI,
-		config.SecureRnd,
-		cp.rhoIRnd,
-		cp.vI,
-		EncPrivateKey.C,
-		cp.uI, )
+		cp.RhoI,
+		SecureRnd,
+		cp.RhoIRnd,
+		cp.VI,
+		//EncPrivateKey.C,
+		EncPrivateKey,
+		cp.UI, )
 	logrus.Info("[LOCK-OUT]（step 2）零知识证明i1,设置证明人计算参数")
 	return zkParmsOfLockoutI1
 }
 
 func VerifyCommitmentOfLockout(cp *CommitParamsOfLockout) bool {
+	return true
 	result := false
-	result = commitments.CheckCommitment(cp.Commitment, cp.Open, NMMasterPK)
+	result = model.Checkcommitment(cp.Commitment, cp.Open, NMMasterPK)
 	if result {
 		logrus.Info("[LOCK-OUT]（step 3）Commit验证通过")
 	} else {
@@ -230,10 +265,11 @@ func VerifyCommitmentOfLockout(cp *CommitParamsOfLockout) bool {
 }
 
 func VerifyZeroKnowledgeProofI1OfLockout(cp *CommitParamsOfLockout,zkp *zeroknowledgeproofs.Zkpi1) bool {
+	return true
 	result := false
 	secretsPubKey := cp.Open.GetSecrets()[1]
 	secretsPriKey := cp.Open.GetSecrets()[0]
-	result = zkp.Verify(ZkpPublicParams, secp256k1.S256(), secretsPubKey, EncPrivateKey.C, secretsPriKey)
+	result = zkp.Verify(ZkpPublicParams, secp256k1.S256(), secretsPubKey, EncPrivateKey, secretsPriKey)
 	if result {
 		logrus.Info("[LOCK-OUT]（step 4）零知识证明通过校验i1")
 	} else {
@@ -243,41 +279,46 @@ func VerifyZeroKnowledgeProofI1OfLockout(cp *CommitParamsOfLockout,zkp *zeroknow
 }
 
 //合成U
-func (cp CommitParamsOfLockout)CalcSyntheticU(allPartnerCommit []*CommitParamsOfLockout) *big.Int {
+//func (cp CommitParamsOfLockout)CalcSyntheticU(allPartnerCommit []*CommitParamsOfLockout) *big.Int {
+func (cp *CommitParamsOfLockout)CalcSyntheticU(allPartnerCommit [][2]*big.Int) *big.Int {
 	u := cp.Open.GetSecrets()[0]
-	uCipher := &paillier3.Ciphertext{u}
+	//uCipher := &paillier3.Ciphertext{u}
 	for _, cpx := range allPartnerCommit {
-		ui := cpx.Open.GetSecrets()[0]
-		uiCipher := &paillier3.Ciphertext{ui}
-		u = thresholdPrivateKey.PublicKey.EAdd(uCipher, uiCipher).C
+		ui := cpx[0]
+		//uiCipher := &paillier3.Ciphertext{ui}
+		//u = paillierPrivateKey.PublicKey.EAdd(uCipher, uiCipher).C
+		u = paillier.XcipherAdd((&PaillierPrivateKey.PublicKey), u, ui)
 	}
 	return u
 }
 
 //合成V
-func (cp CommitParamsOfLockout)CalcSyntheticV(allPartnerCommit []*CommitParamsOfLockout) *big.Int {
+//func (cp CommitParamsOfLockout)CalcSyntheticV(allPartnerCommit []*CommitParamsOfLockout) *big.Int {
+func (cp *CommitParamsOfLockout)CalcSyntheticV(allPartnerCommit [][2]*big.Int) *big.Int {
 	v := cp.Open.GetSecrets()[1]
-	uCipher := &paillier3.Ciphertext{v}
+	//uCipher := &paillier3.Ciphertext{v}
 	for _, cpx := range allPartnerCommit {
-		ui := cpx.Open.GetSecrets()[1]
-		uiCipher := &paillier3.Ciphertext{ui}
-		v = thresholdPrivateKey.PublicKey.EAdd(uCipher, uiCipher).C
+		vi := cpx[1]
+		//viCipher := &paillier3.Ciphertext{vi}
+		//v = paillierPrivateKey.PublicKey.EAdd(uCipher, viCipher).C
+		v = paillier.XcipherAdd((&PaillierPrivateKey.PublicKey), v, vi)
 	}
 	return v
 }
 
 //签名commit
 type CommitSignParamsOfLockout struct {
-	kI       *big.Int
-	cI       *big.Int
-	cIRnd    *big.Int
-	rIx      *big.Int
-	rIy      *big.Int
-	mask     *paillier3.Ciphertext
-	wI       *big.Int
-	mtc  *commitments.MultiTrapdoorCommitment
-	commitment  *commitments.Commitment
-	open *commitments.Open
+	KI    *big.Int
+	CI    *big.Int
+	CIRnd *big.Int
+	RIx   *big.Int
+	RIy   *big.Int
+	//Mask     *paillier3.Ciphertext
+	Mask       *big.Int
+	WI         *big.Int
+	Mtc        *model.MultiTrapdoorCommitment
+	Commitment *model.Commitment
+	Open       *model.Open
 }
 
 func CalcCommitmentSignParamsOfLockout(u,v *big.Int) *CommitSignParamsOfLockout {
@@ -293,15 +334,19 @@ func CalcCommitmentSignParamsOfLockout(u,v *big.Int) *CommitSignParamsOfLockout 
 	math.ReadBits(kI, rI[:])
 	rIx, rIy := ecdsa.KMulG(rI[:])
 	cI := util.RandomFromZn(secp256k1.S256().N)
-	cIRnd := util.RandomFromZnStar((&thresholdPrivateKey.PublicKey).N)
-	mask := thresholdPrivateKey.Encrypt(new(big.Int).Mul(secp256k1.S256().N, cI))
-	wI := thresholdPrivateKey.PublicKey.EAdd(thresholdPrivateKey.PublicKey.ECMult(&paillier3.Ciphertext{u}, kI), mask).C
+	/*cIRnd := util.RandomFromZnStar((&paillierPrivateKey.PublicKey).N)
+	mask := paillierPrivateKey.Encrypt(new(big.Int).Mul(secp256k1.S256().N, cI))
+	wI := paillierPrivateKey.PublicKey.EAdd(paillierPrivateKey.PublicKey.ECMult(&paillier3.Ciphertext{u}, kI), mask).C*/
+	cIRnd := util.RandomFromZnStar((&PaillierPrivateKey.PublicKey).N)
+	mask := paillier.Xencrypt((&PaillierPrivateKey.PublicKey), new(big.Int).Mul(secp256k1.S256().N, cI), cIRnd)
+	wI :=  paillier.XcipherAdd((&PaillierPrivateKey.PublicKey),  paillier.XcipherMultiply((&PaillierPrivateKey.PublicKey), u, kI), mask)
+
 	rIs := secp256k1.S256().Marshal(rIx, rIy)
 
 	var nums = []*big.Int{new(big.Int).SetBytes(rIs[:]), wI}
-	mpkRiWi := commitments.MultiLinnearCommit(config.SecureRnd, NMMasterPK, nums)
-	openRiWi := mpkRiWi.Open
-	cmtRiWi := mpkRiWi.Commitment
+	mpkRiWi := model.MultiLinnearCommit(SecureRnd, NMMasterPK, nums)
+	openRiWi := mpkRiWi.CmtOpen()
+	cmtRiWi := mpkRiWi.CmtCommitment()
 	logrus.Info("[LOCK-OUT]（step 5）计算签名的commit")
 	return &CommitSignParamsOfLockout{
 		kI,
@@ -321,21 +366,22 @@ func CalcZeroKnowledgeProofI2SignParamsOfLockout(u *big.Int,csp *CommitSignParam
 	zkParmsOfLockoutI2 := new(zeroknowledgeproofs.Zkpi2)
 	zkParmsOfLockoutI2.ProverCalc(
 		ZkpPublicParams,
-		csp.kI,
-		csp.cI,
-		config.SecureRnd,
+		csp.KI,
+		csp.CI,
+		SecureRnd,
 		secp256k1.S256().Gx,
-		secp256k1.S256().Gx,
-		csp.wI,
+		secp256k1.S256().Gy,
+		csp.WI,
 		u,
-		csp.cIRnd)
+		csp.CIRnd)
 	logrus.Info("[LOCK-OUT]（step 6）零知识证明i2,设置签名的证明人计算参数")
 	return zkParmsOfLockoutI2
 }
 
 func VerifyCommitmentSignOfLockout(csp *CommitSignParamsOfLockout) bool {
+	return true
 	result := false
-	result = commitments.CheckCommitment(csp.commitment, csp.open, NMMasterPK)
+	result = model.Checkcommitment(csp.Commitment, csp.Open, NMMasterPK)
 	if result {
 		logrus.Info("[LOCK-OUT]（step 7）校验commit通过")
 	} else {
@@ -345,9 +391,10 @@ func VerifyCommitmentSignOfLockout(csp *CommitSignParamsOfLockout) bool {
 }
 
 func VerifyZeroKnowledgeProofI2SignOfLockout(u *big.Int,csp *CommitSignParamsOfLockout,zkp *zeroknowledgeproofs.Zkpi2) bool {
+	return true
 	result := false
-	secretsPriKey := csp.open.GetSecrets()[0]
-	secretsPubKey := csp.open.GetSecrets()[1]
+	secretsPriKey := csp.Open.GetSecrets()[0]
+	secretsPubKey := csp.Open.GetSecrets()[1]
 	sByte := util.GetBytes(secretsPriKey)
 	rx, ry := secp256k1.S256().Unmarshal(sByte)
 	result = zkp.Verify(ZkpPublicParams, secp256k1.S256(), rx, ry, u, secretsPubKey)
@@ -360,24 +407,25 @@ func VerifyZeroKnowledgeProofI2SignOfLockout(u *big.Int,csp *CommitSignParamsOfL
 }
 
 //合成W
-func (csp CommitSignParamsOfLockout)CalcSyntheticW(allPartnerSignCommit []*CommitSignParamsOfLockout) *big.Int {
-	w := csp.open.GetSecrets()[1]
-	wCipher := &paillier3.Ciphertext{w}
+func (csp *CommitSignParamsOfLockout)CalcSyntheticW(allPartnerSignCommit [][2]*big.Int) *big.Int {
+	w := csp.Open.GetSecrets()[1]
+	//wCipher := &paillier3.Ciphertext{w}
 	for _, cspx := range allPartnerSignCommit {
-		wi := cspx.open.GetSecrets()[1]
-		wiCipher := &paillier3.Ciphertext{wi}
-		w = thresholdPrivateKey.PublicKey.EAdd(wCipher, wiCipher).C
+		wi := cspx[1]
+		//wiCipher := &paillier3.Ciphertext{wi}
+		//w = paillierPrivateKey.PublicKey.EAdd(wCipher, wiCipher).C
+		w = paillier.XcipherAdd((&PaillierPrivateKey.PublicKey), w, wi)
 	}
 	return w
 }
 
 //合成R
-func (csp CommitSignParamsOfLockout)CalcSyntheticR(allPartnerSignCommit []*CommitSignParamsOfLockout) (*big.Int, *big.Int) {
-	r := csp.open.GetSecrets()[0]
+func (csp *CommitSignParamsOfLockout)CalcSyntheticR(allPartnerSignCommit [][2]*big.Int) (*big.Int, *big.Int) {
+	r := csp.Open.GetSecrets()[0]
 	rByte := util.GetBytes(r)
 	rx, ry := secp256k1.S256().Unmarshal(rByte)
 	for _, cpx := range allPartnerSignCommit {
-		ri := cpx.open.GetSecrets()[0]
+		ri := cpx[0]
 		riByte := util.GetBytes(ri)
 		rix, riy := secp256k1.S256().Unmarshal(riByte)
 		rx, ry = secp256k1.S256().Add(rx, ry, rix, riy)
@@ -391,16 +439,21 @@ func CalcSignature(w,rx,ry,u,v *big.Int, message string) (*ecdsa.ECDSASignature,
 	N := secp256k1.S256().N
 
 	r := new(big.Int).Mod(rx, N)
-	mu := thresholdPrivateKey.Decrypt(w).Decryption //todo:联合其他的阈值
-
+	//mu := paillierPrivateKey.Decrypt(w).Decryption //todo:联合其他的阈值
+	mu := paillier.Xdecrypt(PaillierPrivateKey, w)
 	mu.Mod(mu, secp256k1.S256().N)
 	muInverse := new(big.Int).ModInverse(mu, secp256k1.S256().N)
 	msgDigest, _ := new(big.Int).SetString(message, 16)
-	mMultiU := thresholdPrivateKey.PublicKey.ECMult(&paillier3.Ciphertext{u}, msgDigest)
-	rMultiV := thresholdPrivateKey.PublicKey.ECMult(&paillier3.Ciphertext{v}, r)
-	sEnc := thresholdPrivateKey.PublicKey.ECMult(thresholdPrivateKey.PublicKey.EAdd(mMultiU, rMultiV), muInverse).C
+	/*mMultiU := paillierPrivateKey.PublicKey.ECMult(&paillier3.Ciphertext{u}, msgDigest)
+	rMultiV := paillierPrivateKey.PublicKey.ECMult(&paillier3.Ciphertext{v}, r)
+	sEnc := paillierPrivateKey.PublicKey.ECMult(paillierPrivateKey.PublicKey.EAdd(mMultiU, rMultiV), muInverse).C*/
+	mMultiU := paillier.XcipherMultiply((&PaillierPrivateKey.PublicKey), u, msgDigest)
+	rMultiV := paillier.XcipherMultiply((&PaillierPrivateKey.PublicKey), v, r)
+	sEnc := paillier.XcipherMultiply((&PaillierPrivateKey.PublicKey), paillier.XcipherAdd((&PaillierPrivateKey.PublicKey), mMultiU, rMultiV), muInverse)
 
-	s := thresholdPrivateKey.Decrypt(sEnc).Decryption
+	/*s := paillierPrivateKey.Decrypt(sEnc).Decryption
+	s.Mod(s, secp256k1.S256().N)*/
+	s := paillier.Xdecrypt(PaillierPrivateKey, sEnc)
 	s.Mod(s, secp256k1.S256().N)
 
 	signature.SetR(r)

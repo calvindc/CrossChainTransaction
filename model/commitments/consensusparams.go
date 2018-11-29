@@ -26,7 +26,8 @@ const ConsensusParamOfPBC="type a\n" +
 	"sign0 "+sign0OfPBC+"\n"
 
 func GenerateNMMasterPublicKey() *MultiTrapdoorMasterPublicKey {
-	pairing, err := pbc.NewPairingFromString(ConsensusParamOfPBC)
+	//pairing, err := pbc.NewPairingFromString(ConsensusParamOfPBC)
+	pairing, err := pbc.NewPairingFromString("type a\nq 461865797040674854785543520687465348175327491813790570884784113145245230030247605521999820430629387195211971356275124424683576752355352508847321749377791\nh 632042503420655948751805161979977007676946285961712997135601731248604852746868244763371913442410154700032\nr 730751167114595186142829002853739519958614802431\nexp2 159\nexp1 138\nsign1 1\nsign0 -1\n")
 	if err != nil {
 		fmt.Println("preload pairing fail.\n")
 	}

@@ -6,19 +6,19 @@ import (
 )
 
 type Open struct {
-	secrets    []*big.Int
-	randomness *pbc.Element
+	Secrets    []*big.Int   `json:"secrets"`
+	Randomness *pbc.Element `json:"randomness"`
 }
 
 func (open *Open) Constructor(randomness *pbc.Element, secrets []*big.Int) {
-	open.secrets = secrets
-	open.randomness = randomness
+	open.Secrets = secrets
+	open.Randomness = randomness
 }
 
 func (open *Open) GetSecrets() []*big.Int {
-	return open.secrets
+	return open.Secrets
 }
 
 func (open *Open) getRandomness() *pbc.Element {
-	return open.randomness
+	return open.Randomness
 }

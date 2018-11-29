@@ -183,7 +183,7 @@ func AddCipher(pubKey *PublicKey, cipher1, cipher2 []byte) []byte {
 // (our cipher text). We do this by multiplying the constant with our
 // ciphertext. Upon decryption, the resulting plain text will be the sum of
 // the plaintext integer and the constant.
-func XAdd(pubKey *PublicKey, cipher, constant []byte) []byte {
+func Add(pubKey *PublicKey, cipher, constant []byte) []byte {
 	c := new(big.Int).SetBytes(cipher)
 	x := new(big.Int).SetBytes(constant)
 
@@ -198,7 +198,7 @@ func XAdd(pubKey *PublicKey, cipher, constant []byte) []byte {
 // constant. We do this by raising our cipher text to the power of the passed
 // constant. Upon decryption, the resulting plain text will be the product of
 // the plaintext integer and the constant.
-func XMul(pubKey *PublicKey, cipher []byte, constant []byte) []byte {
+func Mul(pubKey *PublicKey, cipher []byte, constant []byte) []byte {
 	c := new(big.Int).SetBytes(cipher)
 	x := new(big.Int).SetBytes(constant)
 

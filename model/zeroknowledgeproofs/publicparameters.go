@@ -3,10 +3,10 @@ package zeroknowledgeproofs
 import (
 	"math/big"
 	"github.com/ethereum/go-ethereum/crypto/secp256k1"
-	"github.com/CrossChainTransaction/model/paillier3"
 	"math/rand"
 	crand "crypto/rand"
 	"github.com/CrossChainTransaction/util"
+	"github.com/CrossChainTransaction/model/paillier"
 )
 
 type PublicParameters struct {
@@ -14,7 +14,8 @@ type PublicParameters struct {
 	h1             *big.Int
 	h2             *big.Int
 	nTilde         *big.Int
-	paillierPubKey *paillier3.PublicKey
+	//paillierPubKey *paillier3.PublicKey
+	paillierPubKey *paillier.PublicKey
 }
 
 type ECPoint struct {
@@ -22,7 +23,8 @@ type ECPoint struct {
 	Y *big.Int
 }
 
-func GenerateParams(BitCurve *secp256k1.BitCurve, primeCertainty int32, kPrime int32, rnd *rand.Rand, paillierPubKey *paillier3.PublicKey) *PublicParameters {
+//func GenerateParams(BitCurve *secp256k1.BitCurve, primeCertainty int32, kPrime int32, rnd *rand.Rand, paillierPubKey *paillier3.PublicKey) *PublicParameters {
+func GenerateParams(BitCurve *secp256k1.BitCurve, primeCertainty int32, kPrime int32, rnd *rand.Rand, paillierPubKey *paillier.PublicKey) *PublicParameters {
 	var p, q, pPrime, qPrime, pPrimeqPrime, nHat *big.Int
 	for {
 		p, _ = crand.Prime(crand.Reader, int(kPrime/2))
@@ -54,7 +56,8 @@ func (pp *PublicParameters) Constructor(curve *secp256k1.BitCurve,
 	nTilde *big.Int,
 	kPrime int32,
 	h1, h2 *big.Int,
-	paillierPubKey *paillier3.PublicKey,
+	//paillierPubKey *paillier3.PublicKey,
+	paillierPubKey *paillier.PublicKey,
 ) {
 	pp.nTilde = nTilde
 	pp.h1 = h1
